@@ -1,0 +1,21 @@
+<div class="row" *ngrxLet="shoppingState$ as shoppingState">
+  <div class="col-xs-10">
+    <app-shopping-list-edit></app-shopping-list-edit>
+    <hr>
+    <p *ngIf="shoppingState.isShoppingListEmpty"
+    style="text-align: center">
+      There are currently no ingredients added to the
+      Shopping list.
+    </p>
+    <ul *ngIf="!shoppingState.isShoppingListEmpty" class="list-group">
+      <li>
+        <a *ngFor="let ingredient of shoppingState.ingredients; let i = index"
+        class="list-group-item"
+        style="cursor: pointer"
+        (click)="onEditIngredient(i)">
+        {{ ingredient.name }} ({{ ingredient.amount }})
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,88 @@
+<ng-container *ngrxLet="displayedRecipe$ as displayedRecipe">
+  <div class="row" *ngIf="!displayedRecipe">
+    <div class="col-xs-12">
+      <h3>No Available Recipes at the Time!</h3>
+    </div>
+  </div>
+  <div *ngIf="displayedRecipe">
+    <div class="row">
+      <div class="col-xs-12">
+        <img
+          [src]="displayedRecipe.imgPath"
+          [alt]="displayedRecipe.name"
+          class="img-responsive"
+          style="max-height: 100px">
+      </div>
+    </div>
+    <hr>
+    <div class="row" *ngrxLet="user$ as user">
+      <div class="col-xs-12">
+        <div
+          class="btn-group"
+          *ngIf="displayedRecipe.createdBy === user?.id"
+          appDropdown>
+          <button
+            type="button"
+            class="btn btn-primary dropdown-toggle"
+            style="margin-right: 10px">
+            Manage Recipe <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu">
+            <li><a routerLink="edit">Edit Recipe</a></li>
+            <li><a style="cursor: pointer" (click)="onDeleteRecipe()">Delete Recipe</a></li>
+          </ul>
+          <button
+            type="button"
+            class="btn btn-primary dropdown-toggle"
+            style="border-radius: 5px"
+            (click)="toShoppingList(displayedRecipe.ingredients)">
+            Add Ingredients to Shopping List
+          </button>
+        </div>
+        <button
+          *ngIf="displayedRecipe.createdBy !== user?.id"
+          type="button"
+          class="btn btn-primary dropdown-toggle"
+          (click)="toShoppingList(displayedRecipe.ingredients)">
+          Add Ingredients to Shopping List
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <h1>{{ displayedRecipe.name }}</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <p>Last updated at: ({{ displayedRecipe.lastUpdated }})</p>
+      </div>
+    </div>
+    <div class="row" *ngIf="!showIngredients">
+      <div class="col-xs-12">
+        <ul class="list-group">
+          <li class="list-group-item" (click)="onShowIngredients()">
+            Show Ingredients <span class="caret"></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row" *ngIf="showIngredients">
+      <div class="col-xs-12">
+        <ul class="list-group">
+          <li class="list-group-item" (click)="onShowIngredients()">
+            Hide Ingredients <span style="transform: rotate(180deg)" class="caret"></span>
+          </li>
+          <li class="list-group-item" *ngFor="let ingredient of displayedRecipe.ingredients">
+            {{ ingredient.name }}({{ ingredient.amount }})
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <p>{{ displayedRecipe.description }}</p>
+      </div>
+    </div>
+  </div>
+</ng-container>

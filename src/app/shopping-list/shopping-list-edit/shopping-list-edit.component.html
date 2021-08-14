@@ -1,0 +1,85 @@
+<div class="row" *ngrxLet="shoppingState$ as shoppingState">
+  <div class="col-xs-12">
+    <form #form="ngForm">
+      <div class="row" *ngIf="shoppingState.editedIngredientId === -1">
+        <div class="col-sm-5 form-group">
+          <label for="nameAdd">Name</label>
+          <input
+            type="text"
+            id="nameAdd"
+            name="name"
+            class="form-control"
+            ngModel
+            required>
+        </div>
+        <div class="col-sm-2 form-group">
+          <label for="amountAdd">Amount</label>
+          <input
+            type="number"
+            id="amountAdd"
+            name="amount"
+            class="form-control"
+            ngModel
+            required
+            pattern="^[1-9]+[0-9]*$">
+        </div>
+      </div>
+      <div class="row" *ngIf="shoppingState.editedIngredientId > -1">
+        <div class="col-sm-5 form-group">
+          <label for="nameEdit">Name</label>
+          <input
+            type="text"
+            id="nameEdit"
+            name="name"
+            class="form-control"
+            [ngModel]="shoppingState.editedIngredient.name"
+            required>
+        </div>
+        <div class="col-sm-2 form-group">
+          <label for="amountEdit">Amount</label>
+          <input
+            type="number"
+            id="amountEdit"
+            name="amount"
+            class="form-control"
+            [ngModel]="shoppingState.editedIngredient.amount"
+            required
+            pattern="^[1-9]+[0-9]*$">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <button
+            class="btn btn-success"
+            type="button"
+            style="margin-right: 10px"
+            [disabled]="!form.valid"
+            (click)="onSubmit((shoppingState.editedIngredientId > -1))">
+            {{ shoppingState.editedIngredientId > -1 ? 'Edit' :  'Add' }}
+          </button>
+          <button class="btn btn-danger"
+                  type="button"
+                  style="margin-right: 10px"
+                  [disabled]="!(shoppingState.editedIngredientId > -1)"
+                  (click)="onDeleteIngredient()">
+            Delete
+          </button>
+          <button class="btn btn-danger"
+                  type="button"
+                  style="margin-right: 10px"
+                  [disabled]="shoppingState.isShoppingListEmpty"
+                  (click)="onDeleteIngredients()">
+            Delete All
+          </button>
+          <button
+            class="btn btn-primary"
+            type="button"
+            [disabled]="!form.value.name && !form.value.amount"
+            (click)="onClearForm()">
+            Clear Form
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
