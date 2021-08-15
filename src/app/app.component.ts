@@ -4,6 +4,7 @@ import { Store } from "@ngrx/store";
 import * as fromApp from "./app.reducer";
 import * as AuthActions from "./auth/auth.actions";
 import * as ShoppingListActions from "./shopping-list/shopping-list.actions";
+import * as RecipeActions from "./recipes/recipes.actions";
 
 @Component({
   selector: 'app-root',
@@ -17,5 +18,6 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.store.dispatch(new AuthActions.AutoLogIn());
     this.store.dispatch(new ShoppingListActions.AutoLoadIngredients());
+    this.store.dispatch(new RecipeActions.LoadRecipes());
   }
 }

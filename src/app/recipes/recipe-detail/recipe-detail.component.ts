@@ -12,6 +12,7 @@ import { userSelector, recipesSelector } from "../../shared/selectors";
 import { Ingredient } from "../../shopping-list/ingredient.model";
 import { User } from "../../auth/user.model";
 import { Subscription } from "rxjs/internal/Subscription";
+import { RecipeService } from "../recipies.service";
 
 @Component({
   selector: 'app-recipe-detail',
@@ -25,6 +26,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<fromApp.AppState>,
+    private recipeService: RecipeService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -57,7 +59,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   }
 
   onDeleteRecipe() {
-    this.store.dispatch(new RecipesActions.DeleteRecipe());
+    this.recipeService.deleteRecipe()
   }
 
   toShoppingList(ingredients: Ingredient []) {

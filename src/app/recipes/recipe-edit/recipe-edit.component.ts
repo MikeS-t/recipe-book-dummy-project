@@ -28,10 +28,10 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   private userId: string;
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
     private store: Store<fromApp.AppState>,
-    private recipeService: RecipeService
+    private recipeService: RecipeService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -60,11 +60,11 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    const updatedRecipe = { ...this.selectedRecipe, ...this.recipeForm.value };
+    const newRecipe = { ...this.selectedRecipe, ...this.recipeForm.value };
     if (this.editMode) {
-      this.recipeService.updateRecipe(updatedRecipe);
+      this.recipeService.updateRecipe(newRecipe);
     } else {
-      this.recipeService.addRecipe(updatedRecipe, this.userId);
+      this.recipeService.addRecipe(newRecipe, this.userId);
     }
     this.onCancel()
   }

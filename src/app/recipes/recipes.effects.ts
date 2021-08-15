@@ -87,7 +87,7 @@ export class RecipesEffects {
           newRecipe
         ).pipe(
           map((res: { name: string }) => {
-          return new RecipesActions.AddRecipeSuccess({ recipeId: res.name });
+            return new RecipesActions.AddRecipeSuccess({ recipeId: res.name });
         }),
           catchError(errorRes => {
             return errorHandler(errorRes);

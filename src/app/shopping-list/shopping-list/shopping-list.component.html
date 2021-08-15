@@ -8,7 +8,7 @@
       Shopping list.
     </p>
     <ul *ngIf="!shoppingState.isShoppingListEmpty" class="list-group">
-      <li>
+      <li style="list-style: none;">
         <a *ngFor="let ingredient of shoppingState.ingredients; let i = index"
         class="list-group-item"
         style="cursor: pointer"

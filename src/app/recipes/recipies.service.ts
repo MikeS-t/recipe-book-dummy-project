@@ -18,7 +18,7 @@ export class RecipeService {
   }
 
   addRecipe(recipe: Recipe, userId: string) {
-    this.store.dispatch(new RecipesActions.UpdateRecipeStart(
+    this.store.dispatch(new RecipesActions.AddRecipeStart(
       { recipe: {
           ...recipe,
           lastUpdated: this.getCurrentDate(),
@@ -31,5 +31,9 @@ export class RecipeService {
     this.store.dispatch(new RecipesActions.UpdateRecipeStart(
       { recipe: { ...recipe, lastUpdated: this.getCurrentDate() } }
     ));
+  }
+
+  deleteRecipe() {
+    this.store.dispatch(new RecipesActions.DeleteRecipe());
   }
 }
